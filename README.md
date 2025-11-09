@@ -1,6 +1,9 @@
 # H2R-Human2Robot
 
-[English](README.md) | [中文](README.zh.md)
+Use the language toggles below (no page reload needed on GitHub).
+
+<details open>
+<summary><strong>English</strong></summary>
 
 H2R-Human2Robot is an open-source initiative to build a real-world, voice-first robot inspired by Iron Man’s J.A.R.V.I.S.—a system that can listen, reason, and execute actions in real time.
 
@@ -53,3 +56,62 @@ _Note: Detailed installation scripts and hardware wiring guides are being assemb
 
 ## Contributing
 Open an issue or discussion with the robot platform you want to integrate, the model stack you prefer, or datasets you can share. Pull requests that improve documentation, add adapters, or extend safety tooling are especially welcome.
+
+</details>
+
+<details>
+<summary><strong>中文</strong></summary>
+
+H2R-Human2Robot 是一个开源计划，目标是打造现实版的 J.A.R.V.I.S.：让机器人能够在真实世界中实时听懂、思考并执行动作。
+
+## 项目愿景
+- 让具备 LLM 智能的机器人硬件变得可负担、可复刻，方便极客和研究者快速迭代。
+- 语音→推理→动作全链路坚持本地优先，兼顾隐私、安全与低延迟体验。
+- 提供模块化接口，方便替换模型、传感器或机器人底盘，而无需重写整套系统。
+
+## 核心能力
+- **流式语音接口**：常开麦克风，针对中英文优化的 FunASR paraformer-zh-streaming。
+- **LLM 推理**：兼容 LocalAI / OpenAI API，负责对话管理、意图解析与工具调用。
+- **可执行输出**：命令可分支到 RealtimeTTS / fasterTTS 语音播报，或 ROS2 / Python 机器人技能。
+- **人类监控友好**：提供日志与状态广播接口，便于可视化与人工接管。
+
+## 系统架构
+```
+🎙️ 语音输入
+    ↓
+🗣️ ASR  (FunASR paraformer-zh-streaming)
+    ↓
+💬 LLM 层  (LocalAI / OpenAI-compatible)
+   ┌──────────────┐
+   │ 对话核心      │
+   │ 命令解析器    │
+   └──────────────┘
+    ↓                 ↓
+🔊 TTS (RealtimeTTS / fasterTTS)    ⚙️ 控制层 (ROS2 / Python API)
+    ↓
+🎧 播报 / 机器人动作
+```
+
+## 设计原则
+- **本地优先**：ASR、LLM、TTS 均可在 Mac 或边缘 GPU 上离线运行，保障隐私与实时性。
+- **模块化适配层**：标准化接口便于替换模型或接入不同机器人。
+- **ROS2 原生控制**：Python 控制层提供话题 / 服务桥接，用于运动、传感与安全校验。
+- **开放协作**：鼓励 AI 工程师、机器人专家与设计师联合打造软硬件体验。
+
+## 快速开始
+1. 克隆仓库，安装 ASR、TTS 与 ROS2 相关 Python 依赖（安装脚本即将提供）。
+2. 在 `config/`（规划中）配置模型权重或 API Key，指向 LocalAI / OpenAI 兼容端点。
+3. 运行语音管线脚本，验证语音→LLM→语音的端到端链路。
+4. 将 ROS2 机器人或仿真环境连接到控制桥，验证 LLM 输出驱动的动作指令。
+
+_提示：更详细的安装、硬件接线指南正在整理中，欢迎一起完善。_
+
+## 路线图
+- ✅ **阶段一：语音助手原型** —— 在 macOS 上实现离线语音 + LLM 闭环。
+- 🚧 **阶段二：机器人具身化** —— 将 LLM 意图映射为 ROS2 动作基元与安全规则。
+- 🌐 **阶段三：公开展示** —— 释出硬件 Demo 方案、视频与协作指南。
+
+## 参与贡献
+欢迎提交 Issue / Discussion，说明想接入的机器人平台、模型方案或可共享的数据集。任何改进文档、添加适配器或扩展安全工具的 PR 都十分欢迎。
+
+</details>
